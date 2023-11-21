@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transparensii</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<header><img src="Transparensii.png" alt="Transparensii Icon" style="height: 20px;"></header>
+
+<body>
+    <div id="createCompanyPage">
+        <h2>Create Company</h2>
+        <form>
+            <label for="_name">Name:</label>
+            <input type="text" id="_name" name="_name" required />
+            <br />
+            <label for="_location">Location:</label>
+            <input type="text" id="_location" name="_location" required />
+            <br />
+            <label for="_uRL">URL:</label>
+            <input type="text" id="_uRL" name="_uRL" required />
+            <br />
+            <button id="createCompany" class="create-company-button">Create Company</button>
+            <div id="loadingIndicator"></div> <!-- Loading indicator element -->
+        </form>
+    </div>
+
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="./Web_Partage.js"></script>
+</body>
+
+</html>

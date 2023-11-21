@@ -1,0 +1,372 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+#ConnectPage {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
+  justify-content: top;
+  height: 100vh;
+}
+
+#ConnectPage h1 {
+  font-size: 24px;
+  text-align: center;
+}
+
+#ConnectPage button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 30px;
+}
+
+#createCompanyPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100%;
+}
+
+#createCompanyPage h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+#createCompanyPage form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#createCompanyPage label {
+  margin-top: 10px;
+}
+
+#createCompanyPage input {
+  margin-top: 5px;
+  padding: 10px;
+  width: 300px;
+}
+
+#createCompanyPage .create-company-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+#createCompanyPage #loadingIndicator {
+  position: absolute;
+  top: calc(80% + 10px); /* Adjust the vertical spacing as needed */
+  left: 50%; /* Align the loading indicator horizontally */
+  transform: translateX(-50%); /* Center the loading indicator horizontally */
+  /* Add additional styles for the loading indicator */
+}
+
+#InformationCompany {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+.notification-dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  min-width: 250px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+#requestsHeading {
+  font-size: 16px;
+  margin: 5px;
+  padding: 5px; 
+  text-align: right;
+}
+
+#ReceivedRequests {
+  margin: 42px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 40px;
+  right: -21px;
+}
+
+#resultReceived {
+  margin-left: 65px;
+}
+
+#container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  margin: 20px;
+}
+
+h1, h2, h3 {
+  color: #333;
+  margin: 20px 0;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.company-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align items to the left */
+  gap: 10px;
+}
+
+.company {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.company:hover {
+  transform: scale(1.05);
+  background-color: #e6e6e6;
+}
+
+header {
+  background-color: #000000;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.heading {
+  font-size: 24px;
+  color: #fff;
+  background-color: #000000;
+  margin: 0;
+  position: absolute;
+  left: 2rem;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  padding: 10px;
+  color: #fff;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  margin-right: 10px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar img {
+  width: 20px;
+  height: auto;
+  margin-left: 20px;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-container form {
+  margin-right: 10px;
+}
+
+.information {
+  margin-top: 20px;
+}
+
+.information h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.information label {
+  font-weight: bold;
+}
+
+.information span {
+  font-weight: normal;
+}
+
+.chart-container {
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+  width: 600px;
+  height: 400px;
+}
+
+canvas#lineChart {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.result {
+  margin: 20px;
+}
+
+.result table {
+  margin-top: 10px;
+}
+
+.line-chart {
+  margin-top: 20px;
+}
+
+.dropdown {
+  margin-right: 10px;
+}
+
+.company-info {
+  margin: 20px;
+}
+
+.company-info h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.company-info label {
+  font-weight: bold;
+}
+
+.company-info span {
+  font-weight: normal;
+}
+
+#loadingIndicator {
+  display: none;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

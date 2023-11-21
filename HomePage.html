@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transparensii</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<header>
+
+    <h1 class="heading">Home</h1>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="./HomePage.html?getCompany=true">Home</a></li>
+            <li><a href="./Search.html?getAllCompanyNames=true">Search</a></li>
+            <li><a href="./MyPartners.html?getPartners=true">My partners</a></li>
+            <li><a href="./PartnersInfo.html?getPartners=true">Partners Info</a></li>
+            <li><a href="./Profile.html?getMyCompany=true">Profile</a></li>
+        </ul>
+        <img src="Transparensii.png" alt="Transparensii Icon">
+    </nav>
+
+</header>
+
+<body>
+
+    <div id="container"></div>
+    <div id="InformationCompany">
+        <h2>Company Informations</h2>
+        <form>
+            <label for="companyName">Name :</label>
+            <span id="companyName"></span>
+            <br />
+            <label for="companyLocation">Location :</label>
+            <span id="companyLocation"></span>
+            <br />
+            <label for="companyCertifactions">Certificates :</label>
+            <span id="companyCertifactions"></span>
+            <br />
+            <label for="companyOwner">Owner :</label>
+            <span id="companyOwner"></span>
+            <br />
+            <label for="companyURL">URL :</label>
+            <span id="companyURL"></span>
+        </form>
+    </div>
+
+    <div id="ReceivedRequests">
+        <h2 id="requestsHeading">Received Partnership Requests :</h2>
+        <div id="resultReceived"></div>
+    </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="lineChart" width="500" height="300"></canvas>
+    </div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./Web_Partage.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("getCompany")) {
+                const GetCompany = async () => {
+                    const companyData = await myContract.getCompany();
+                    console.log(companyData);
+
+                    // Retrieve and display company information
+                    // Modify the code as needed to update the relevant HTML elements
+                    const name = companyData[0];
+                    const location = companyData[1];
+                    const certificates = companyData[2];
+                    const owner = companyData[3];
+                    const uRL = companyData[4];
+
+                    document.getElementById("companyName").innerText = name;
+                    document.getElementById("companyLocation").innerText = location;
+                    document.getElementById("companyCertifactions").innerText = certificates;
+                    document.getElementById("companyOwner").innerText = owner;
+                    document.getElementById("companyURL").innerText = uRL;
+                };
+
+                const resetChart = () => {
+                    const canvas = document.getElementById('lineChart');
+                    const context = canvas.getContext('2d');
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                };
+
+                const GetStatistics = async () => {
+                    resetChart();
+                    const companyData = await myContract.getStatistics();
+                    console.log(companyData);
+
+                    // Convert BigNumber objects to numbers
+                    const convertedData = companyData.map((item) => item.toNumber());
+
+                    // Get the canvas element
+                    const canvas = document.getElementById('lineChart');
+
+                    // Create the chart using Chart.js
+                    const chart = new Chart(canvas, {
+                        type: 'line',
+                        data: {
+                            labels: convertedData.map((_, index) => `Turnover month ${index + 1}`), // Generate labels (optional)
+                            datasets: [
+                                {
+                                    label: 'Turnover ($)',
+                                    data: convertedData,
+                                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                                    borderColor: 'rgba(0, 123, 255, 1)',
+                                    borderWidth: 1,
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Company Monthly Turnovers',
+                                    fontSize: 16,
+                                    fontColor: '#333',
+                                },
+                            },
+                        },
+                    });
+                };
+
+                await GetCompany();
+                await GetStatistics();
+                await GetReceivedRequests();
+            }
+        });
+    </script>
+</body>
+
+</html>

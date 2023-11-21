@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transparensii</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<header>
+
+    <h1 class="heading">Partner Informations</h1>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="./HomePage.html?getCompany=true">Home</a></li>
+            <li><a href="./Search.html?getAllCompanyNames=true">Search</a></li>
+            <li><a href="./MyPartners.html?getPartners=true">My partners</a></li>
+            <li><a href="./PartnersInfo.html?getPartners=true">Partners Info</a></li>
+            <li><a href="./Profile.html?getMyCompany=true">Profile</a></li>
+        </ul>
+        <img src="Transparensii.png" alt="Transparensii Icon">
+    </nav>
+
+</header>
+
+<body>
+
+    <div id="InformationCompany">
+        <h2>Company Informations</h2>
+        <form>
+            <label for="companyName">Name :</label>
+            <span id="companyName"></span>
+            <br />
+            <label for="companyLocation">Location :</label>
+            <span id="companyLocation"></span>
+            <br />
+            <label for="companyURL">URL :</label>
+            <span id="companyURL"></span>
+        </form>
+        <h3>Certificates:</h3>
+        <ul id="certificateList"></ul>
+        <h3>Statistics:</h3>
+        <ul id="statisticsList"></ul>
+        <h3>Partners:</h3>
+        <ul id="partnersList"></ul>
+    </div>
+
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="./Web_Partage.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("partnerName")) {
+                const GetCompanyInfo = async () => {
+                    const selectedCompanyName = params.get("partnerName");
+                    const companyData = await myContract.getCompanyInfo(selectedCompanyName);
+                    console.log(companyData);
+
+                    const name = companyData[0];
+                    const location = companyData[1];
+                    const url = companyData[2];
+                    const certificates = companyData[3];
+                    const statistics = companyData[4];
+                    const partners = companyData[5];
+
+                    document.getElementById("companyName").innerText = name;
+                    document.getElementById("companyLocation").innerText = location;
+                    document.getElementById("companyURL").innerText = url;
+
+                    const certificateList = document.getElementById("certificateList");
+                    certificateList.innerHTML = ''; // Clear the list before populating it
+                    if (certificates.length > 0) {
+                        for (let i = 0; i < certificates.length; i++) {
+                            const certificateItem = document.createElement("li");
+                            certificateItem.innerText = certificates[i];
+                            certificateList.appendChild(certificateItem);
+                        }
+                    } else {
+                        certificateList.style.display = "none"; // Hide the list if it's empty
+                    }
+
+                    const statisticsList = document.getElementById("statisticsList");
+                    statisticsList.innerHTML = ''; // Clear the list before populating it
+                    if (statistics.length > 0) {
+                        for (let i = 0; i < statistics.length; i++) {
+                            const statisticsItem = document.createElement("li");
+                            statisticsItem.innerText = statistics[i].toString();
+                            statisticsList.appendChild(statisticsItem);
+                        }
+                    } else {
+                        statisticsList.style.display = "none"; // Hide the list if it's empty
+                    }
+
+                    const partnersList = document.getElementById("partnersList");
+                    partnersList.innerHTML = ''; // Clear the list before populating it
+                    if (partners.length > 0) {
+                        for (let i = 0; i < partners.length; i++) {
+                            const partnerItem = document.createElement("li");
+                            partnerItem.innerText = `Company: ${partners[i].companyName}, Visibility: ${partners[i].visibility}`;
+                            partnersList.appendChild(partnerItem);
+                        }
+                    } else {
+                        partnersList.style.display = "none"; // Hide the list if it's empty
+                    }
+                };
+
+                await GetCompanyInfo();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Transparensii</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<header>
+
+    <h1 class="heading">My partners</h1>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="./HomePage.html?getCompany=true">Home</a></li>
+            <li><a href="./Search.html?getAllCompanyNames=true">Search</a></li>
+            <li><a href="./MyPartners.html?getPartners=true">My partners</a></li>
+            <li><a href="./PartnersInfo.html?getPartners=true">Partners Info</a></li>
+            <li><a href="./Profile.html?getMyCompany=true">Profile</a></li>
+        </ul>
+        <img src="Transparensii.png" alt="Transparensii Icon">
+    </nav>
+
+</header>
+
+<body>
+
+    <h1>Partners</h1>
+
+    <div>
+        <label for="searchPartnerInput">Search:</label>
+        <input type="text" id="searchPartnerInput" onkeyup="filterPartnerNames()" placeholder="Enter a partner name">
+    </div>
+
+    <div id="partnerContainer" class="company-container"></div>
+
+    <h2 style="margin-top: 200px;">Partnership visibility :</h2>
+    <div id="result"></div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="./Web_Partage.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("getPartners")) {
+                const GetPartners = async () => {
+                    const partnerNames = await myContract.getPartners();
+                    console.log(partnerNames);
+
+                    // Retrieve and display company information
+                    // Modify the code as needed to update the relevant HTML elements
+                    const partnerContainer = document.getElementById('partnerContainer');
+
+                    partnerNames.forEach((partnerName) => {
+                        const link = document.createElement("a");
+                        link.className = 'company';
+                        link.href = `./SetVisibilityPage.html?partnerName=${encodeURIComponent(
+                            partnerName
+                        )}`;
+                        link.textContent = partnerName;
+                        partnerContainer.appendChild(link);
+                    });
+                }
+
+                const VisibilityPartners = async () => {
+                    const visibilityList = await myContract.visibilityPartners();
+
+                    let table = "<table><tr><th>Name</th></tr>";
+
+                    for (let i = 0; i < visibilityList.length; i++) {
+                        table += `<tr><td>${visibilityList[i]}</td></tr>`;
+                    }
+
+                    table += "</table>";
+                    document.getElementById("result").innerHTML = table;
+                };
+
+                await GetPartners();
+                await VisibilityPartners();
+            }
+        });
+    </script>
+</body>
+
+</html>
